@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claude Code 全命令一页速查表</title>
+<style>
+  :root{
+    --ink:#17120f;
+    --muted:#6b625c;
+    --paper:#fffaf3;
+    --card:#fff;
+    --line:#eadfd2;
+    --red:#e94b2f;
+    --orange:#f05a32;
+    --gold:#f7b955;
+    --green:#1f8f5f;
+    --blue:#2563eb;
+    --black:#111;
+    --code:#f5efe7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:linear-gradient(135deg,#fffaf3 0%,#fff4e5 45%,#fff 100%);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    line-height:1.45;
+  }
+  .page{
+    width:min(1180px,96vw);
+    margin:22px auto;
+    background:rgba(255,255,255,.88);
+    border:1px solid var(--line);
+    box-shadow:0 18px 60px rgba(60,35,15,.12);
+    border-radius:28px;
+    overflow:hidden;
+  }
+  .hero{
+    padding:28px 32px 20px;
+    background:
+      radial-gradient(circle at 88% 8%, rgba(240,90,50,.18), transparent 28%),
+      linear-gradient(135deg,#1b130f 0%,#3c1c13 62%,#7b2d17 100%);
+    color:#fff;
+    position:relative;
+  }
+  .hero:after{
+    content:"";
+    position:absolute;
+    right:28px; bottom:-22px;
+    width:110px; height:110px;
+    border-radius:28px;
+    background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.02));
+    transform:rotate(12deg);
+  }
+  .eyebrow{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#ffd8c6;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    padding:6px 10px;
+    margin-bottom:12px;
+  }
+  h1{
+    font-size:36px;
+    line-height:1.08;
+    margin:0;
+    letter-spacing:-.04em;
+  }
+  .subtitle{
+    max-width:850px;
+    margin:10px 0 0;
+    color:#ffe9df;
+    font-size:15px;
+  }
+  .source-note{
+    margin-top:14px;
+    color:#ffccb9;
+    font-size:12px;
+  }
+  .content{padding:22px 26px 28px}
+  .workflow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .flow-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:14px;
+    box-shadow:0 8px 20px rgba(70,40,20,.06);
+  }
+  .flow-card h3{
+    margin:0 0 8px;
+    font-size:14px;
+    display:flex;
+    gap:7px;
+    align-items:center;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:24px;height:24px;
+    border-radius:8px;
+    background:#fff0e8;
+    color:var(--red);
+    font-weight:800;
+    font-size:12px;
+  }
+  code,kbd{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--code);
+    border:1px solid #eadccc;
+    border-radius:6px;
+    padding:1px 5px;
+    font-size:.93em;
+    color:#2b211a;
+  }
+  .cmdline{
+    margin:6px 0;
+    padding:8px 9px;
+    background:#1b1715;
+    color:#fff7ed;
+    border-radius:10px;
+    font-family:"SFMono-Regular",Consolas,monospace;
+    font-size:12px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  .cmdline span{color:#ffb38f}
+  .grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr 1fr;
+    gap:14px;
+  }
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(70,40,20,.05);
+  }
+  .section h2{
+    margin:0;
+    padding:12px 14px;
+    font-size:15px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,#fff4e9,#fff);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2 b{
+    width:7px;height:18px;border-radius:99px;background:var(--orange);display:inline-block;
+  }
+  .section-body{padding:12px 14px}
+  .mini{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:7px;
+  }
+  .item{
+    display:grid;
+    grid-template-columns:145px 1fr;
+    gap:8px;
+    padding:7px 0;
+    border-bottom:1px dashed #eadfd2;
+    font-size:12.5px;
+  }
+  .item:last-child{border-bottom:0}
+  .item .why{color:var(--muted)}
+  .pill{
+    display:inline-block;
+    font-size:11px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:#fff0e8;
+    color:#b9321e;
+    font-weight:700;
+    margin-right:5px;
+    margin-bottom:5px;
+  }
+  .danger{
+    border-left:4px solid var(--red);
+    background:#fff3ef;
+    border-radius:14px;
+    padding:10px 11px;
+    margin-top:10px;
+    font-size:12.5px;
+  }
+  .full{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:14px;
+  }
+  .command-cloud{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:12px 14px 14px;
+  }
+  .command-cloud code{
+    font-size:11.2px;
+    padding:4px 6px;
+    background:#fffaf3;
+  }
+  .compact-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11.5px;
+  }
+  .compact-table th{
+    text-align:left;
+    color:#8a4633;
+    font-size:11px;
+    padding:7px 8px;
+    border-bottom:1px solid var(--line);
+    background:#fff7ee;
+  }
+  .compact-table td{
+    padding:6px 8px;
+    border-bottom:1px solid #f0e6dc;
+    vertical-align:top;
+  }
+  .compact-table tr:last-child td{border-bottom:0}
+  .compact-table code{font-size:10.8px}
+  .two-col{
+    columns:2;
+    column-gap:12px;
+  }
+  .two-col .item{
+    break-inside:avoid;
+    grid-template-columns:124px 1fr;
+  }
+  .footer{
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:18px;
+    background:#1a1512;
+    color:#ffece3;
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:14px;
+    font-size:12.5px;
+  }
+  .footer strong{color:#ffbc9e}
+  .watermark{
+    text-align:right;
+    color:#c9aa9b;
+  }
+  @media (max-width:900px){
+    .workflow,.grid,.full,.footer{grid-template-columns:1fr}
+    h1{font-size:29px}
+    .item{grid-template-columns:120px 1fr}
+    .two-col{columns:1}
+  }
+  @media print{
+    @page{size:A4 landscape;margin:8mm}
+    body{background:#fff}
+    .page{width:100%;margin:0;border-radius:0;box-shadow:none;border:0}
+    .hero{padding:18px 22px 14px}
+    h1{font-size:29px}
+    .content{padding:14px}
+    .workflow{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+    .flow-card,.section{box-shadow:none}
+    .flow-card{padding:10px;border-radius:12px}
+    .grid{grid-template-columns:1.06fr 1fr 1fr;gap:8px}
+    .section{border-radius:12px}
+    .section h2{padding:8px 10px;font-size:13px}
+    .section-body{padding:8px 10px}
+    .item{font-size:10.2px;grid-template-columns:105px 1fr;padding:4px 0}
+    .cmdline{font-size:9.8px;padding:6px}
+    .compact-table{font-size:9.3px}
+    .compact-table td,.compact-table th{padding:4px 5px}
+    .command-cloud{gap:4px;padding:8px}
+    .command-cloud code{font-size:8.8px;padding:2px 4px}
+    .full{grid-template-columns:1.18fr .82fr;gap:8px;margin-top:8px}
+    .footer{display:none}
+    .source-note{font-size:10px}
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">Claude Code · 完整版一页命令速查</div>
+      <h1>别背命令，按场景抄这一页就够了</h1>
+      <p class="subtitle">适合放进 Claude Code 上手包 / 公众号赠品 / 社群资料：前半页是高频工作流，后半页是全量斜杠命令索引。先会用，再查全。</p>
+      <div class="source-note">整理日期：2026-06-08｜命令可能因系统、版本、计划、插件、MCP 环境不同而变化；进入 Claude Code 后输入 <code>/</code> 可看你当前账号的可用命令。</div>
+    </header>
+
+    <section class="content">
+      <div class="workflow">
+        <div class="flow-card">
+          <h3><span class="tag">01</span>第一次进项目</h3>
+          <div class="cmdline">cd 项目目录</div>
+          <div class="cmdline">claude</div>
+          <div class="cmdline"><span>/init</span> → <span>/memory</span> → <span>/permissions</span></div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">生成 CLAUDE.md，补充项目规则，再设置工具权限。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">02</span>大改动别莽</h3>
+          <div class="cmdline"><span>/plan</span> 先让它列方案</div>
+          <div class="cmdline"><span>/diff</span> 看改了什么</div>
+          <div class="cmdline"><span>/code-review --fix</span></div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">先规划、再执行、最后复核，最稳。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">03</span>上下文爆了</h3>
+          <div class="cmdline"><span>/context</span> 看占用</div>
+          <div class="cmdline"><span>/compact</span> 压缩总结</div>
+          <div class="cmdline"><span>/clear</span> 开新任务</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">长任务优先 compact，不要一直硬聊。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">04</span>出问题先查</h3>
+          <div class="cmdline"><span>/status</span> 查版本/账号/连接</div>
+          <div class="cmdline"><span>/doctor</span> 自动诊断</div>
+          <div class="cmdline"><span>/debug</span> 看日志排错</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">不要一上来重装，先定位。</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="section">
+          <h2><b></b>外部 CLI 启动命令</h2>
+          <div class="section-body mini">
+            <div class="item"><code>claude</code><div class="why">打开交互式 Claude Code。</div></div>
+            <div class="item"><code>claude "问题"</code><div class="why">带一个初始问题启动。</div></div>
+            <div class="item"><code>claude -p "问题"</code><div class="why">非交互执行，输出后退出，适合脚本。</div></div>
+            <div class="item"><code>cat log.txt | claude -p "分析"</code><div class="why">把文件/日志管道给 Claude 处理。</div></div>
+            <div class="item"><code>claude -c</code><div class="why">继续当前目录最近一次会话。</div></div>
+            <div class="item"><code>claude -r "会话名"</code><div class="why">恢复指定会话。</div></div>
+            <div class="item"><code>claude update</code><div class="why">更新 Claude Code。</div></div>
+            <div class="item"><code>claude install stable</code><div class="why">安装/重装稳定版。</div></div>
+            <div class="item"><code>claude auth login</code><div class="why">登录 Anthropic / Claude 账号。</div></div>
+            <div class="item"><code>claude auth status</code><div class="why">检查登录状态，排错第一步。</div></div>
+            <div class="item"><code>claude agents</code><div class="why">查看/管理后台 agent 会话。</div></div>
+            <div class="item"><code>claude mcp</code><div class="why">配置 MCP 服务。</div></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b>最常用斜杠命令</h2>
+          <div class="section-body mini">
+            <div class="item"><code>/help</code><div class="why">查看当前可用命令。</div></div>
+            <div class="item"><code>/status</code><div class="why">账号、模型、连接、版本状态。</div></div>
+            <div class="item"><code>/init</code><div class="why">初始化项目 CLAUDE.md。</div></div>
+            <div class="item"><code>/memory</code><div class="why">编辑/管理记忆与 CLAUDE.md。</div></div>
+            <div class="item"><code>/permissions</code><div class="why">管理工具权限，别乱开危险权限。</div></div>
+            <div class="item"><code>/plan</code><div class="why">进入计划模式，适合大改动前。</div></div>
+            <div class="item"><code>/diff</code><div class="why">查看当前文件改动。</div></div>
+            <div class="item"><code>/code-review</code><div class="why">审查 diff，可加 <code>--fix</code>。</div></div>
+            <div class="item"><code>/review</code><div class="why">审查 PR 或当前改动。</div></div>
+            <div class="item"><code>/security-review</code><div class="why">安全风险检查。</div></div>
+            <div class="item"><code>/verify</code><div class="why">运行项目并验证功能是否真的可用。</div></div>
+            <div class="item"><code>/run</code><div class="why">启动并操作项目应用进行验证。</div></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b>高频参数 / 快捷键</h2>
+          <div class="section-body mini">
+            <div class="item"><code>--model</code><div class="why">指定模型，如 <code>--model sonnet</code>。</div></div>
+            <div class="item"><code>--effort high</code><div class="why">提高推理强度；大任务更适合。</div></div>
+            <div class="item"><code>--add-dir ../x</code><div class="why">额外授权可读写目录。</div></div>
+            <div class="item"><code>--debug</code><div class="why">打开调试日志。</div></div>
+            <div class="item"><code>--mcp-config</code><div class="why">加载 MCP 配置文件。</div></div>
+            <div class="item"><code>--output-format json</code><div class="why">脚本化输出 JSON。</div></div>
+            <div class="item"><code>Ctrl+C</code><div class="why">中断 / 清空输入 / 退出。</div></div>
+            <div class="item"><code>Ctrl+R</code><div class="why">搜索历史命令。</div></div>
+            <div class="item"><code>Shift+Tab</code><div class="why">切换权限模式：默认、计划、自动等。</div></div>
+            <div class="item"><code>Esc Esc</code><div class="why">清空输入或打开回滚菜单。</div></div>
+            <div class="danger"><strong>危险提醒：</strong><code>--dangerously-skip-permissions</code> 只适合非常确定的沙盒环境。新手资料里建议只讲“不推荐乱开”，不要把它包装成懒人技巧。</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="full">
+        <section class="section">
+          <h2><b></b>全量斜杠命令索引：按场景查</h2>
+          <div class="section-body">
+            <div class="two-col">
+              <div class="item"><code>/add-dir</code><div class="why">添加本会话可访问目录。</div></div>
+              <div class="item"><code>/agents</code><div class="why">管理 agent 配置。</div></div>
+              <div class="item"><code>/autofix-pr</code><div class="why">让 Web 端会话跟进 PR 的 CI/评论修复。</div></div>
+              <div class="item"><code>/background</code><div class="why">当前会话转后台运行；别名 <code>/bg</code>。</div></div>
+              <div class="item"><code>/batch</code><div class="why">大规模改动拆分为并行 worktree 任务。</div></div>
+              <div class="item"><code>/branch</code><div class="why">从当前对话分叉，尝试另一条路线。</div></div>
+              <div class="item"><code>/btw</code><div class="why">问一个不污染主对话的旁路问题。</div></div>
+              <div class="item"><code>/chrome</code><div class="why">配置 Chrome 集成。</div></div>
+              <div class="item"><code>/claude-api</code><div class="why">加载 Claude API 参考/迁移辅助。</div></div>
+              <div class="item"><code>/clear</code><div class="why">新开空上下文；别名 <code>/reset</code>、<code>/new</code>。</div></div>
+              <div class="item"><code>/code-review</code><div class="why">代码审查，可选 effort、<code>--fix</code>、<code>ultra</code>。</div></div>
+              <div class="item"><code>/color</code><div class="why">修改提示栏颜色。</div></div>
+              <div class="item"><code>/compact</code><div class="why">压缩当前对话上下文。</div></div>
+              <div class="item"><code>/config</code><div class="why">打开设置；别名 <code>/settings</code>。</div></div>
+              <div class="item"><code>/context</code><div class="why">查看上下文用量。</div></div>
+              <div class="item"><code>/copy</code><div class="why">复制最近回复或指定回复。</div></div>
+              <div class="item"><code>/cost</code><div class="why">用量统计；等同 <code>/usage</code>。</div></div>
+              <div class="item"><code>/debug</code><div class="why">开启/读取调试日志并定位问题。</div></div>
+              <div class="item"><code>/deep-research</code><div class="why">多源搜索并生成引用报告。</div></div>
+              <div class="item"><code>/desktop</code><div class="why">继续到 Claude Code Desktop；别名 <code>/app</code>。</div></div>
+              <div class="item"><code>/diff</code><div class="why">查看未提交改动与每轮差异。</div></div>
+              <div class="item"><code>/doctor</code><div class="why">诊断安装/设置问题，可按 <code>f</code> 尝试修复。</div></div>
+              <div class="item"><code>/effort</code><div class="why">设置推理强度：low/medium/high/xhigh/max 等。</div></div>
+              <div class="item"><code>/exit</code><div class="why">退出 CLI；别名 <code>/quit</code>。</div></div>
+              <div class="item"><code>/export</code><div class="why">导出当前对话。</div></div>
+              <div class="item"><code>/fast</code><div class="why">切换快速模式。</div></div>
+              <div class="item"><code>/feedback</code><div class="why">提交反馈/bug；别名 <code>/bug</code>、<code>/share</code>。</div></div>
+              <div class="item"><code>/fewer-permission-prompts</code><div class="why">分析常用只读工具，减少权限弹窗。</div></div>
+              <div class="item"><code>/focus</code><div class="why">只看最近提示、工具摘要与最终回复。</div></div>
+              <div class="item"><code>/fork</code><div class="why">派生后台 subagent 做旁路任务。</div></div>
+              <div class="item"><code>/goal</code><div class="why">设置持续工作目标，直到条件满足。</div></div>
+              <div class="item"><code>/heapdump</code><div class="why">导出堆快照排查高内存。</div></div>
+              <div class="item"><code>/help</code><div class="why">查看帮助与命令。</div></div>
+              <div class="item"><code>/hooks</code><div class="why">查看 hook 配置。</div></div>
+              <div class="item"><code>/ide</code><div class="why">管理 IDE 集成。</div></div>
+              <div class="item"><code>/init</code><div class="why">生成项目 CLAUDE.md。</div></div>
+              <div class="item"><code>/insights</code><div class="why">分析会话模式和摩擦点。</div></div>
+              <div class="item"><code>/install-github-app</code><div class="why">安装 Claude GitHub Actions。</div></div>
+              <div class="item"><code>/install-slack-app</code><div class="why">安装 Claude Slack app。</div></div>
+              <div class="item"><code>/keybindings</code><div class="why">打开键位配置文件。</div></div>
+              <div class="item"><code>/login</code><div class="why">登录账号。</div></div>
+              <div class="item"><code>/logout</code><div class="why">退出账号。</div></div>
+              <div class="item"><code>/loop</code><div class="why">周期性执行提示；别名 <code>/proactive</code>。</div></div>
+              <div class="item"><code>/mcp</code><div class="why">管理 MCP 连接和 OAuth。</div></div>
+              <div class="item"><code>/memory</code><div class="why">编辑记忆/CLAUDE.md/自动记忆。</div></div>
+              <div class="item"><code>/mobile</code><div class="why">显示手机 App 下载二维码；别名 <code>/ios</code>、<code>/android</code>。</div></div>
+              <div class="item"><code>/model</code><div class="why">切换模型并可保存默认。</div></div>
+              <div class="item"><code>/passes</code><div class="why">分享 Claude Code 免费体验资格，视账号而定。</div></div>
+              <div class="item"><code>/permissions</code><div class="why">管理允许/询问/拒绝规则；别名 <code>/allowed-tools</code>。</div></div>
+              <div class="item"><code>/plan</code><div class="why">进入计划模式。</div></div>
+              <div class="item"><code>/plugin</code><div class="why">管理插件。</div></div>
+              <div class="item"><code>/powerup</code><div class="why">交互式学习 Claude Code 功能。</div></div>
+              <div class="item"><code>/privacy-settings</code><div class="why">查看/更新隐私设置，依计划可见。</div></div>
+              <div class="item"><code>/radio</code><div class="why">打开 Claude FM。</div></div>
+              <div class="item"><code>/recap</code><div class="why">生成当前会话一句话总结。</div></div>
+              <div class="item"><code>/release-notes</code><div class="why">查看版本更新日志。</div></div>
+              <div class="item"><code>/reload-plugins</code><div class="why">重新加载插件。</div></div>
+              <div class="item"><code>/reload-skills</code><div class="why">重新扫描技能/自定义命令。</div></div>
+              <div class="item"><code>/remote-control</code><div class="why">允许从 claude.ai 远控本地会话；别名 <code>/rc</code>。</div></div>
+              <div class="item"><code>/remote-env</code><div class="why">选择云 agent 默认环境。</div></div>
+              <div class="item"><code>/rename</code><div class="why">重命名当前会话。</div></div>
+              <div class="item"><code>/resume</code><div class="why">恢复会话；别名 <code>/continue</code>。</div></div>
+              <div class="item"><code>/review</code><div class="why">本地审查 PR。</div></div>
+              <div class="item"><code>/rewind</code><div class="why">回滚对话/代码到检查点；别名 <code>/checkpoint</code>、<code>/undo</code>。</div></div>
+              <div class="item"><code>/run</code><div class="why">启动应用并验证改动。</div></div>
+              <div class="item"><code>/run-skill-generator</code><div class="why">为项目生成运行/验证技能。</div></div>
+              <div class="item"><code>/sandbox</code><div class="why">切换沙盒模式，依平台可见。</div></div>
+              <div class="item"><code>/schedule</code><div class="why">创建/更新/运行 routine；别名 <code>/routines</code>。</div></div>
+              <div class="item"><code>/scroll-speed</code><div class="why">调整滚轮速度。</div></div>
+              <div class="item"><code>/security-review</code><div class="why">检查安全漏洞。</div></div>
+              <div class="item"><code>/setup-bedrock</code><div class="why">配置 Amazon Bedrock。</div></div>
+              <div class="item"><code>/setup-vertex</code><div class="why">配置 Google Vertex AI。</div></div>
+              <div class="item"><code>/simplify</code><div class="why">只做清理优化，不主查 bug。</div></div>
+              <div class="item"><code>/skills</code><div class="why">列出技能。</div></div>
+              <div class="item"><code>/stats</code><div class="why">用量统计；别名 <code>/usage</code>。</div></div>
+              <div class="item"><code>/status</code><div class="why">状态页：版本/模型/账号/连接。</div></div>
+              <div class="item"><code>/statusline</code><div class="why">配置状态栏。</div></div>
+              <div class="item"><code>/stickers</code><div class="why">订购贴纸。</div></div>
+              <div class="item"><code>/stop</code><div class="why">停止当前后台会话。</div></div>
+              <div class="item"><code>/tasks</code><div class="why">查看后台任务；别名 <code>/bashes</code>。</div></div>
+              <div class="item"><code>/team-onboarding</code><div class="why">基于最近使用生成团队上手指南。</div></div>
+              <div class="item"><code>/teleport</code><div class="why">把 Web 会话拉进终端；别名 <code>/tp</code>。</div></div>
+              <div class="item"><code>/terminal-setup</code><div class="why">配置终端快捷键。</div></div>
+              <div class="item"><code>/theme</code><div class="why">修改主题。</div></div>
+              <div class="item"><code>/tui</code><div class="why">切换终端 UI 渲染模式。</div></div>
+              <div class="item"><code>/ultraplan</code><div class="why">云端深度计划后再执行。</div></div>
+              <div class="item"><code>/ultrareview</code><div class="why">深度多 agent 审查；现在优先用 <code>/code-review ultra</code>。</div></div>
+              <div class="item"><code>/upgrade</code><div class="why">打开升级页。</div></div>
+              <div class="item"><code>/usage</code><div class="why">查看用量、限制与活动统计。</div></div>
+              <div class="item"><code>/usage-credits</code><div class="why">配置额外使用额度。</div></div>
+              <div class="item"><code>/verify</code><div class="why">构建/运行/观察，确认改动有效。</div></div>
+              <div class="item"><code>/voice</code><div class="why">语音输入开关。</div></div>
+              <div class="item"><code>/web-setup</code><div class="why">连接 GitHub 到 Claude Code Web。</div></div>
+              <div class="item"><code>/workflows</code><div class="why">查看/暂停/恢复工作流。</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b>复制区：直接贴给 Claude Code 的提示词</h2>
+          <div class="section-body">
+            <p style="margin:0 0 8px;color:var(--muted);font-size:12.5px;">这些不是系统命令，但比命令更像“工作流开关”。</p>
+            <div class="cmdline">先不要修改文件，先阅读项目结构、列出风险点和执行计划。</div>
+            <div class="cmdline">先解释你要改哪些文件、为什么改、可能影响哪里，等我确认。</div>
+            <div class="cmdline">按最小改动原则修复，不要顺手重构无关代码。</div>
+            <div class="cmdline">每次改完请运行项目现有测试/构建命令，并说明结果。</div>
+            <div class="cmdline">如果需要删除/覆盖/迁移文件，必须先暂停并征求确认。</div>
+            <div class="cmdline">请把本项目长期规则整理进 CLAUDE.md，但不要覆盖我已有内容。</div>
+
+            <h2 style="margin:12px -14px 0;border-top:1px solid var(--line);"><b></b>环境变量 / 配置速记</h2>
+            <table class="compact-table">
+              <tr><th>位置</th><th>作用</th></tr>
+              <tr><td><code>~/.claude/settings.json</code></td><td>只对你个人、所有项目生效。</td></tr>
+              <tr><td><code>.claude/settings.json</code></td><td>项目级配置，可随仓库共享。</td></tr>
+              <tr><td><code>.claude/settings.local.json</code></td><td>本项目个人配置，不建议提交。</td></tr>
+              <tr><td><code>ANTHROPIC_API_KEY</code></td><td>API Key 鉴权；设置后可能覆盖订阅登录。</td></tr>
+              <tr><td><code>ANTHROPIC_BASE_URL</code></td><td>代理/网关转发地址；排错时要确认是否被错误设置。</td></tr>
+              <tr><td><code>API_TIMEOUT_MS</code></td><td>请求超时时间。</td></tr>
+            </table>
+
+            <h2 style="margin:12px -14px 0;border-top:1px solid var(--line);"><b></b>命令使用纪律</h2>
+            <div class="command-cloud">
+              <code>先 /status</code><code>再 /doctor</code><code>必要时 /debug</code><code>大改先 /plan</code><code>改后看 /diff</code><code>提交前 /code-review</code><code>上线前 /verify</code><code>长聊用 /compact</code><code>新任务用 /clear</code><code>危险权限少开</code>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <div>
+          <strong>推荐放置方式：</strong>作为资料包里的「01-命令速查.html」，也可以插到公众号文章末尾做赠品预览。免费版保留“高频工作流 + 常用命令”，付费/社群版保留这份完整索引。
+        </div>
+        <div class="watermark">Claude Code Cheat Sheet｜by AI 实操资料包</div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
