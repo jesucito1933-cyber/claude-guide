@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>国产大模型 API Key 获取一页速查表</title>
+<style>
+  :root{
+    --ink:#17120f;
+    --muted:#6b625c;
+    --paper:#fffaf3;
+    --card:#fff;
+    --line:#eadfd2;
+    --red:#e94b2f;
+    --orange:#f05a32;
+    --gold:#f7b955;
+    --green:#178b5b;
+    --blue:#2563eb;
+    --purple:#7c3aed;
+    --black:#111;
+    --code:#f5efe7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:linear-gradient(135deg,#fffaf3 0%,#fff4e5 48%,#fff 100%);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    line-height:1.45;
+  }
+  a{color:inherit;text-decoration:none}
+  .page{
+    width:min(1180px,96vw);
+    margin:22px auto;
+    background:rgba(255,255,255,.9);
+    border:1px solid var(--line);
+    box-shadow:0 18px 60px rgba(60,35,15,.12);
+    border-radius:28px;
+    overflow:hidden;
+  }
+  .hero{
+    padding:30px 34px 22px;
+    background:
+      radial-gradient(circle at 88% 8%, rgba(240,90,50,.22), transparent 30%),
+      radial-gradient(circle at 8% 88%, rgba(247,185,85,.18), transparent 26%),
+      linear-gradient(135deg,#17110e 0%,#3c1b13 58%,#84311c 100%);
+    color:#fff;
+    position:relative;
+  }
+  .hero:after{
+    content:"API";
+    position:absolute;
+    right:34px; bottom:-18px;
+    font-size:72px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-.08em;
+    color:rgba(255,255,255,.08);
+  }
+  .eyebrow{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#ffd8c6;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    padding:6px 10px;
+    margin-bottom:12px;
+  }
+  h1{
+    font-size:36px;
+    line-height:1.08;
+    margin:0;
+    letter-spacing:-.04em;
+  }
+  .subtitle{
+    max-width:870px;
+    margin:10px 0 0;
+    color:#ffe9df;
+    font-size:15px;
+  }
+  .source-note{
+    margin-top:14px;
+    color:#ffccb9;
+    font-size:12px;
+  }
+  .content{padding:22px 26px 28px}
+  .workflow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .flow-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:14px;
+    box-shadow:0 8px 20px rgba(70,40,20,.06);
+  }
+  .flow-card h3{
+    margin:0 0 9px;
+    font-size:14px;
+    display:flex;
+    gap:7px;
+    align-items:center;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:24px;height:24px;
+    border-radius:8px;
+    background:#fff0e8;
+    color:var(--red);
+    font-weight:800;
+    font-size:12px;
+  }
+  code,kbd{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--code);
+    border:1px solid #eadccc;
+    border-radius:6px;
+    padding:1px 5px;
+    font-size:.93em;
+    color:#2b211a;
+  }
+  .cmdline{
+    margin:6px 0;
+    padding:8px 9px;
+    background:#1b1715;
+    color:#fff7ed;
+    border-radius:10px;
+    font-family:"SFMono-Regular",Consolas,monospace;
+    font-size:12px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  .cmdline span{color:#ffb38f}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(70,40,20,.05);
+  }
+  .section h2{
+    margin:0;
+    padding:12px 14px;
+    font-size:15px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,#fff4e9,#fff);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section h2 b{
+    width:7px;height:18px;border-radius:99px;background:var(--orange);display:inline-block;
+  }
+  .section-body{padding:12px 14px}
+  .item{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:8px;
+    padding:7px 0;
+    border-bottom:1px dashed #eadfd2;
+    font-size:12.3px;
+  }
+  .item:last-child{border-bottom:0}
+  .item .why{color:var(--muted)}
+  .big-item{
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px dashed #eadfd2;
+    font-size:12.4px;
+  }
+  .big-item:last-child{border-bottom:0}
+  .badge{
+    display:inline-block;
+    font-size:11px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:#fff0e8;
+    color:#b9321e;
+    font-weight:700;
+    margin-right:5px;
+    margin-bottom:5px;
+  }
+  .brand{
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+  .brand.deepseek{color:#2563eb}
+  .brand.glm{color:#178b5b}
+  .brand.kimi{color:#7c3aed}
+  .brand.minimax{color:#d97706}
+  .step{
+    display:flex;
+    gap:8px;
+    margin:7px 0;
+    color:var(--muted);
+    font-size:12.3px;
+  }
+  .step strong{
+    min-width:22px;height:22px;border-radius:7px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:#fff0e8;color:#c2410c;font-size:11px;
+  }
+  .full{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:14px;
+  }
+  .compact-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11.5px;
+  }
+  .compact-table th{
+    text-align:left;
+    color:#8a4633;
+    font-size:11px;
+    padding:7px 8px;
+    border-bottom:1px solid var(--line);
+    background:#fff7ee;
+  }
+  .compact-table td{
+    padding:7px 8px;
+    border-bottom:1px solid #f0e6dc;
+    vertical-align:top;
+  }
+  .compact-table tr:last-child td{border-bottom:0}
+  .compact-table code{font-size:10.8px}
+  .danger{
+    border-left:4px solid var(--red);
+    background:#fff3ef;
+    border-radius:14px;
+    padding:10px 11px;
+    margin-top:10px;
+    font-size:12.4px;
+    color:#4a2b22;
+  }
+  .ok{
+    border-left:4px solid var(--green);
+    background:#f2fff7;
+    border-radius:14px;
+    padding:10px 11px;
+    margin-top:10px;
+    font-size:12.4px;
+    color:#263c2f;
+  }
+  .cloud{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding-top:2px;
+  }
+  .cloud code{
+    font-size:11.2px;
+    padding:4px 6px;
+    background:#fffaf3;
+  }
+  .sources{
+    margin-top:14px;
+    padding:12px 14px;
+    background:#fff8ef;
+    border:1px solid var(--line);
+    border-radius:18px;
+    font-size:11.3px;
+    color:#7b6255;
+  }
+  .sources a{
+    color:#9a3412;
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  .footer{
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:18px;
+    background:#1a1512;
+    color:#ffece3;
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:14px;
+    font-size:12.5px;
+  }
+  .footer strong{color:#ffbc9e}
+  .watermark{text-align:right;color:#c9aa9b}
+  @media (max-width:1000px){
+    .workflow,.grid,.full,.footer{grid-template-columns:1fr}
+    h1{font-size:29px}
+    .item,.big-item{grid-template-columns:1fr}
+  }
+  @media print{
+    @page{size:A4 landscape;margin:8mm}
+    body{background:#fff}
+    .page{width:100%;margin:0;border-radius:0;box-shadow:none;border:0}
+    .hero{padding:18px 22px 14px}
+    h1{font-size:29px}
+    .content{padding:14px}
+    .workflow{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+    .flow-card,.section{box-shadow:none}
+    .flow-card{padding:10px;border-radius:12px}
+    .grid{grid-template-columns:repeat(4,1fr);gap:8px}
+    .full{grid-template-columns:1.04fr .96fr;gap:8px;margin-top:8px}
+    .section{border-radius:12px}
+    .section h2{padding:8px 10px;font-size:13px}
+    .section-body{padding:8px 10px}
+    .item,.big-item{font-size:9.8px;grid-template-columns:82px 1fr;padding:4px 0}
+    .cmdline{font-size:9px;padding:6px}
+    .compact-table{font-size:8.9px}
+    .compact-table td,.compact-table th{padding:4px 5px}
+    .danger,.ok{font-size:9.3px;padding:7px;margin-top:7px}
+    .sources,.footer{display:none}
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">DeepSeek · GLM · Kimi · MiniMax API Key</div>
+      <h1>国产大模型 API Key 获取方法一页速查表</h1>
+      <p class="subtitle">适合放进 AI 上手包 / 社群资料 / 公众号赠品：把四家平台的入口、创建步骤、Base URL、环境变量和常见坑放在一页里，用户照着抄就能接入。</p>
+      <div class="source-note">整理日期：2026-06-08｜平台入口、模型名、计费规则会更新；实际以各平台官网控制台与官方文档为准。API Key 属于敏感信息，不要截图外发、不要写进公开仓库。</div>
+    </header>
+
+    <section class="content">
+      <div class="workflow">
+        <div class="flow-card">
+          <h3><span class="tag">01</span>先注册/登录</h3>
+          <div class="cmdline">进入对应开放平台</div>
+          <div class="cmdline">完成手机号/邮箱/实名/组织信息</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">国内平台经常需要手机号，部分能力可能需要充值或开通权限。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">02</span>创建 API Key</h3>
+          <div class="cmdline">控制台 → API Keys</div>
+          <div class="cmdline">Create / 创建密钥</div>
+          <div class="cmdline">复制并保存，只显示一次</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">不要把 Key 直接贴到前端代码、截图、GitHub、微信群。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">03</span>配置环境变量</h3>
+          <div class="cmdline">export XXX_API_KEY="你的key"</div>
+          <div class="cmdline">base_url 选对地区/协议</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">OpenAI 兼容、Anthropic 兼容的 Base URL 不一定一样。</p>
+        </div>
+        <div class="flow-card">
+          <h3><span class="tag">04</span>先跑最小测试</h3>
+          <div class="cmdline">curl / Python SDK</div>
+          <div class="cmdline">401 查 Key，402/余额查计费</div>
+          <div class="cmdline">404 查模型名和地址</div>
+          <p style="margin:7px 0 0;color:var(--muted);font-size:12px;">别一上来接 Claude Code / Cursor，先确认 API 本身能通。</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="section">
+          <h2><b></b><span class="brand deepseek">DeepSeek</span></h2>
+          <div class="section-body">
+            <div class="step"><strong>1</strong><span>访问 DeepSeek Platform，登录账号。</span></div>
+            <div class="step"><strong>2</strong><span>进入 <code>API Keys</code> 页面，点击创建 Key。</span></div>
+            <div class="step"><strong>3</strong><span>复制保存 Key；调用时使用 Bearer Auth。</span></div>
+            <div class="step"><strong>4</strong><span>如果无法调用，优先检查余额、限流、Base URL、模型名。</span></div>
+            <div class="item"><code>Key 页面</code><div class="why">platform.deepseek.com/api_keys</div></div>
+            <div class="item"><code>OpenAI URL</code><div class="why">https://api.deepseek.com</div></div>
+            <div class="item"><code>Anthropic URL</code><div class="why">https://api.deepseek.com/anthropic</div></div>
+            <div class="item"><code>环境变量</code><div class="why"><code>DEEPSEEK_API_KEY</code></div></div>
+            <div class="item"><code>模型示例</code><div class="why"><code>deepseek-v4-pro</code> / <code>deepseek-v4-flash</code></div></div>
+            <div class="danger">注意：官方文档显示旧模型名 <code>deepseek-chat</code>、<code>deepseek-reasoner</code> 将在 2026-07-24 后弃用，做教程时建议用新模型名。</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b><span class="brand glm">GLM / 智谱</span></h2>
+          <div class="section-body">
+            <div class="step"><strong>1</strong><span>访问智谱开放平台 <code>open.bigmodel.cn</code>。</span></div>
+            <div class="step"><strong>2</strong><span>注册/登录后，进入个人中心。</span></div>
+            <div class="step"><strong>3</strong><span>点击 <code>API Keys</code>，创建新的 API Key。</span></div>
+            <div class="step"><strong>4</strong><span>选择模型和开发方式：HTTP API / Python SDK / Java SDK。</span></div>
+            <div class="item"><code>入口</code><div class="why">open.bigmodel.cn</div></div>
+            <div class="item"><code>通用 URL</code><div class="why">https://open.bigmodel.cn/api/paas/v4</div></div>
+            <div class="item"><code>Coding URL</code><div class="why">https://open.bigmodel.cn/api/coding/paas/v4</div></div>
+            <div class="item"><code>认证</code><div class="why"><code>Authorization: Bearer YOUR_API_KEY</code></div></div>
+            <div class="item"><code>模型示例</code><div class="why"><code>glm-5.1</code> / <code>GLM-5V-Turbo</code> / <code>GLM-Image</code></div></div>
+            <div class="ok">注意：如果你买的是 GLM 编码套餐，官方提醒要用 Coding 端点，不要误用通用端点。</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b><span class="brand kimi">Kimi / Moonshot</span></h2>
+          <div class="section-body">
+            <div class="step"><strong>1</strong><span>访问 Kimi 开放平台 / Moonshot 控制台。</span></div>
+            <div class="step"><strong>2</strong><span>进入 <code>开发工作台</code> 或 <code>API Keys</code>。</span></div>
+            <div class="step"><strong>3</strong><span>创建 API Key，默认项目一般选 <code>default</code>。</span></div>
+            <div class="step"><strong>4</strong><span>确认余额充足，再接入 OpenAI SDK 兼容格式。</span></div>
+            <div class="item"><code>Key 页面</code><div class="why">platform.kimi.com/console/api-keys 或 platform.moonshot.cn/console/api-keys</div></div>
+            <div class="item"><code>国内 URL</code><div class="why">https://api.moonshot.cn/v1</div></div>
+            <div class="item"><code>国际 URL</code><div class="why">https://api.moonshot.ai/v1</div></div>
+            <div class="item"><code>环境变量</code><div class="why"><code>MOONSHOT_API_KEY</code></div></div>
+            <div class="item"><code>模型示例</code><div class="why"><code>kimi-k2.6</code> / <code>kimi-k2.5</code> / <code>kimi-for-coding</code></div></div>
+            <div class="danger">注意：Kimi 聊天网页账号、Kimi For Coding 权益、Moonshot 开放平台 Key 可能不是同一套配置，接工具时要看清 Provider。</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b><span class="brand minimax">MiniMax</span></h2>
+          <div class="section-body">
+            <div class="step"><strong>1</strong><span>按地区访问 MiniMax API Platform：国际站或国内站。</span></div>
+            <div class="step"><strong>2</strong><span>注册/登录后，进入 <code>API Keys</code>。</span></div>
+            <div class="step"><strong>3</strong><span>Pay-as-you-go 选择 <code>Create new secret key</code>。</span></div>
+            <div class="step"><strong>4</strong><span>Token Plan 用户去 <code>Billing → Token Plan</code> 查看 Subscription Key。</span></div>
+            <div class="item"><code>国际站</code><div class="why">platform.minimax.io</div></div>
+            <div class="item"><code>国内站</code><div class="why">platform.minimaxi.com</div></div>
+            <div class="item"><code>OpenAI URL</code><div class="why">国际：api.minimax.io/v1｜国内：api.minimaxi.com/v1</div></div>
+            <div class="item"><code>Anthropic URL</code><div class="why">国际：api.minimax.io/anthropic｜国内：api.minimaxi.com/anthropic</div></div>
+            <div class="item"><code>模型示例</code><div class="why"><code>MiniMax-M3</code> / <code>MiniMax-M2.7</code> / <code>MiniMax-M2</code></div></div>
+            <div class="ok">注意：MiniMax 官方把 Pay-as-you-go API Key 和 Token Plan Subscription Key 分开说明，别填错。</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="full">
+        <section class="section">
+          <h2><b></b>复制区：环境变量 + 最小测试</h2>
+          <div class="section-body">
+            <div class="big-item">
+              <code>DeepSeek</code>
+              <div class="why">
+                <div class="cmdline">export DEEPSEEK_API_KEY="你的 DeepSeek Key"</div>
+                <div class="cmdline">curl https://api.deepseek.com/chat/completions \<br> -H "Content-Type: application/json" \<br> -H "Authorization: Bearer $DEEPSEEK_API_KEY" \<br> -d '{"model":"deepseek-v4-pro","messages":[{"role":"user","content":"hello"}]}'</div>
+              </div>
+            </div>
+            <div class="big-item">
+              <code>GLM</code>
+              <div class="why">
+                <div class="cmdline">export ZHIPUAI_API_KEY="你的智谱 Key"</div>
+                <div class="cmdline">curl https://open.bigmodel.cn/api/paas/v4/chat/completions \<br> -H "Content-Type: application/json" \<br> -H "Authorization: Bearer $ZHIPUAI_API_KEY" \<br> -d '{"model":"glm-5.1","messages":[{"role":"user","content":"你好"}]}'</div>
+              </div>
+            </div>
+            <div class="big-item">
+              <code>Kimi</code>
+              <div class="why">
+                <div class="cmdline">export MOONSHOT_API_KEY="你的 Kimi / Moonshot Key"</div>
+                <div class="cmdline">curl https://api.moonshot.cn/v1/chat/completions \<br> -H "Content-Type: application/json" \<br> -H "Authorization: Bearer $MOONSHOT_API_KEY" \<br> -d '{"model":"kimi-k2.6","messages":[{"role":"user","content":"你好"}]}'</div>
+              </div>
+            </div>
+            <div class="big-item">
+              <code>MiniMax</code>
+              <div class="why">
+                <div class="cmdline">export MINIMAX_API_KEY="你的 MiniMax Key"</div>
+                <div class="cmdline">curl https://api.minimax.io/v1/text/chatcompletion_v2 \<br> -H "Content-Type: application/json" \<br> -H "Authorization: Bearer $MINIMAX_API_KEY" \<br> -d '{"model":"MiniMax-M3","messages":[{"role":"user","content":"hello"}]}'</div>
+                <div style="font-size:11.5px;color:#8a6b5c;margin-top:4px;">国内用户把域名换成 <code>api.minimaxi.com</code>；如果使用 Anthropic 兼容接 Claude Code，则使用 <code>/anthropic</code> Base URL。</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2><b></b>接入工具时最容易踩的坑</h2>
+          <div class="section-body">
+            <table class="compact-table">
+              <tr><th>问题</th><th>优先排查</th><th>解决动作</th></tr>
+              <tr><td>401 / Unauthorized</td><td>Key 错、环境变量没生效、复制多了空格</td><td>重新生成 Key；终端执行 <code>echo $XXX_API_KEY</code> 检查。</td></tr>
+              <tr><td>402 / 余额不足</td><td>余额、套餐、Token Plan 权益</td><td>去 Billing / Balance / Token Plan 页面确认。</td></tr>
+              <tr><td>404 / model not found</td><td>模型名写错、旧模型弃用、地区站不一致</td><td>复制官方模型名；先用官方示例跑通。</td></tr>
+              <tr><td>请求超时</td><td>网络、代理、Base URL、地区</td><td>国内/国际站域名别混；先 curl 测试。</td></tr>
+              <tr><td>Claude Code 接不上</td><td>OpenAI 兼容和 Anthropic 兼容 URL 混用</td><td>Claude Code 类工具优先看是否需要 Anthropic 兼容地址。</td></tr>
+              <tr><td>Cursor / Cline 无响应</td><td>Provider、Base URL、模型名、余额</td><td>先在控制台或 curl 跑通，再接工具。</td></tr>
+            </table>
+
+            <h2 style="margin:12px -14px 0;border-top:1px solid var(--line);"><b></b>Key 管理纪律</h2>
+            <div class="cloud">
+              <code>不要写前端</code><code>不要提交 Git</code><code>不要截图外发</code><code>不要放公众号源码</code><code>用 .env</code><code>分项目建 Key</code><code>泄露立刻删除</code><code>定期轮换</code><code>设置额度预警</code><code>教程只放占位符</code>
+            </div>
+            <div class="danger"><strong>社群资料建议写法：</strong>永远用 <code>YOUR_API_KEY</code>、<code>&lt;MINIMAX_API_KEY&gt;</code> 这类占位符，不要为了演示方便放真实 Key。哪怕余额只有几块钱，也会被爬虫扫空。</div>
+          </div>
+        </section>
+      </div>
+
+      <section class="section" style="margin-top:14px;">
+        <h2><b></b>四家平台横向对照</h2>
+        <div class="section-body">
+          <table class="compact-table">
+            <tr>
+              <th>平台</th>
+              <th>Key 获取入口</th>
+              <th>常用环境变量</th>
+              <th>OpenAI 兼容 Base URL</th>
+              <th>Anthropic 兼容 / 特殊说明</th>
+              <th>适合放进教程的提醒</th>
+            </tr>
+            <tr>
+              <td><strong>DeepSeek</strong></td>
+              <td>DeepSeek Platform → API Keys</td>
+              <td><code>DEEPSEEK_API_KEY</code></td>
+              <td><code>https://api.deepseek.com</code></td>
+              <td><code>https://api.deepseek.com/anthropic</code></td>
+              <td>旧模型名有弃用时间，教程用新模型名。</td>
+            </tr>
+            <tr>
+              <td><strong>GLM / 智谱</strong></td>
+              <td>智谱开放平台 → 个人中心 → API Keys</td>
+              <td><code>ZHIPUAI_API_KEY</code></td>
+              <td><code>https://open.bigmodel.cn/api/paas/v4</code></td>
+              <td>Coding 套餐用 <code>/api/coding/paas/v4</code></td>
+              <td>通用 API 和 Coding API 端点区分。</td>
+            </tr>
+            <tr>
+              <td><strong>Kimi / Moonshot</strong></td>
+              <td>Kimi 开放平台 → Console → API Keys</td>
+              <td><code>MOONSHOT_API_KEY</code></td>
+              <td><code>https://api.moonshot.cn/v1</code> / <code>https://api.moonshot.ai/v1</code></td>
+              <td>Kimi For Coding 可能使用专门权益与模型 ID</td>
+              <td>开放平台 Key、会员 Key、聊天网页不是一回事。</td>
+            </tr>
+            <tr>
+              <td><strong>MiniMax</strong></td>
+              <td>MiniMax API Platform → API Keys → Create new secret key</td>
+              <td><code>MINIMAX_API_KEY</code></td>
+              <td><code>https://api.minimax.io/v1</code> / <code>https://api.minimaxi.com/v1</code></td>
+              <td><code>https://api.minimax.io/anthropic</code> / <code>https://api.minimaxi.com/anthropic</code></td>
+              <td>Pay-as-you-go Key 和 Token Plan Subscription Key 别填混。</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <div class="sources">
+        <strong>官方资料来源：</strong>
+        <a href="https://api-docs.deepseek.com/" target="_blank">DeepSeek API Docs</a> ·
+        <a href="https://docs.bigmodel.cn/cn/guide/start/quick-start" target="_blank">智谱 GLM 快速开始</a> ·
+        <a href="https://docs.bigmodel.cn/cn/api/introduction" target="_blank">智谱 API 使用概述</a> ·
+        <a href="https://platform.moonshot.cn/docs/guide/start-using-kimi-api" target="_blank">Kimi API 快速开始</a> ·
+        <a href="https://platform.kimi.com/docs/api/overview" target="_blank">Kimi API 概述</a> ·
+        <a href="https://platform.minimax.io/docs/guides/quickstart-preparation" target="_blank">MiniMax Prerequisites</a> ·
+        <a href="https://platform.minimax.io/docs/guides/text-ai-coding-tools" target="_blank">MiniMax Coding Tools</a>
+      </div>
+
+      <footer class="footer">
+        <div><strong>推荐放置方式：</strong>把这份作为「02-国产模型 API Key 获取方法.html」。免费版可保留获取路径；付费/社群版再加“接入 Claude Code、Cursor、Cline、Cherry Studio 的截图教程”。</div>
+        <div class="watermark">API Key Guide｜AI 实操资料包</div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
