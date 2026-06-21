@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#17130f">
+  <title>父亲，您辛苦了</title>
+  <style>
+    :root{--gold:#e7bf76;--cream:#fff5df;--ink:#17130f;--muted:#cdbfaaa8}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;background:var(--ink)}
+    body{margin:0;color:var(--cream);font-family:"Songti SC","STSong","Microsoft YaHei",serif;background:#17130f;overflow-x:hidden}
+    button{font:inherit}.page{height:100svh;min-height:560px;position:relative;scroll-snap-align:start;display:grid;place-items:center;overflow:hidden;isolation:isolate;padding:clamp(30px,6vw,72px) 24px}
+    .photo{position:absolute;inset:0;z-index:-3;background-color:#170d08;background-position:center;background-size:contain;background-repeat:no-repeat;animation:breathe 16s ease-in-out infinite alternate}
+    .page::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(10,9,8,.24),rgba(10,9,8,.18) 42%,rgba(10,9,8,.82))}
+    .page::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 80% 20%,rgba(231,191,118,.2),transparent 35%),linear-gradient(90deg,rgba(0,0,0,.18),transparent 40%)}
+    .content{width:min(90vw,680px);text-align:center;opacity:.25;transform:translateY(32px);transition:1.15s cubic-bezier(.2,.8,.2,1)}
+    .page.is-visible .content{opacity:1;transform:none}.eyebrow{font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.42em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+    h1,h2,p{margin:0}h1{font-size:clamp(44px,12vw,84px);line-height:1.12;letter-spacing:.08em;text-shadow:0 4px 28px #0008}h2{font-size:clamp(36px,9vw,66px);line-height:1.2;letter-spacing:.08em}
+    .rule{display:flex;align-items:center;gap:12px;width:180px;margin:24px auto;color:var(--gold)}.rule::before,.rule::after{content:"";height:1px;flex:1;background:currentColor}.rule b{font-size:8px;transform:rotate(45deg);background:currentColor;width:7px;height:7px}
+    .copy{font-size:clamp(17px,4.5vw,24px);line-height:2;letter-spacing:.1em;color:#f8ead0}.quiet{color:var(--muted);font-size:13px;font-family:system-ui,sans-serif;letter-spacing:.12em}
+    .hero .photo{background-image:url("images/father-portrait.png")}.hero .content{position:absolute;left:5%;right:5%;bottom:11%;width:auto;padding:22px 15px;background:linear-gradient(90deg,transparent,#100b08bd 20%,#100b08bd 80%,transparent);text-shadow:0 3px 18px #000}.hero .lead{margin-top:16px;line-height:1.8;font-size:clamp(14px,3.8vw,20px);letter-spacing:.12em}.type{display:inline;border-right:1px solid var(--gold);animation:caret .75s steps(1) infinite}
+    .scroll{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:grid;gap:8px;place-items:center;font:10px system-ui,sans-serif;letter-spacing:.25em;color:#fff9}.scroll i{display:block;width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:drop 1.7s infinite}
+    .page.two .photo{background-image:url("images/father-labor.png")}.page.three .photo{background-image:url("images/father-honor.png")}.page.two .content,.page.three .content{position:absolute;left:5%;right:5%;bottom:6%;width:auto;padding:18px 14px;background:linear-gradient(90deg,transparent,#250d06d9 20%,#250d06d9 80%,transparent);text-shadow:0 3px 16px #000}
+    .quote{font-size:clamp(20px,5.4vw,31px);line-height:2.1;letter-spacing:.09em}.quote strong{color:var(--gold);font-weight:400}
+    .memory{background:radial-gradient(circle at 50% 18%,#65513b 0,#241c15 45%,#100e0c 100%)}.frame{width:min(94vw,760px);aspect-ratio:4/3;position:relative;border:1px solid #e7bf7666;padding:10px;box-shadow:0 30px 80px #0008}.frame::before{content:"";position:absolute;inset:10px;background:url("images/family.png") center/cover no-repeat;filter:sepia(.1) contrast(.96);animation:breathe 14s ease-in-out infinite alternate}.frame::after{content:"";position:absolute;inset:10px;background:linear-gradient(transparent 55%,#17100bd9)}.frame-copy{position:absolute;z-index:2;bottom:20px;left:20px;right:20px;line-height:1.7;font-size:clamp(17px,4.6vw,28px)}
+    .award{background:linear-gradient(145deg,#251b11,#0d0c0b)}.certificate{width:min(91vw,620px);padding:clamp(32px,8vw,64px) clamp(24px,7vw,54px);border:1px solid var(--gold);outline:1px solid #e7bf7655;outline-offset:-10px;background:radial-gradient(circle at 50% 0,#e7bf761c,transparent 45%),#17130fe8;box-shadow:0 35px 90px #0009}.seal{width:72px;height:72px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;margin:0 auto 22px;font-size:30px}.award h2{font-size:clamp(30px,8vw,52px)}.award .name{color:var(--gold);font-size:clamp(25px,6vw,34px);margin:24px 0 8px}.reason{font-size:clamp(15px,4vw,20px);line-height:2.05;color:#eadcc5}
+    .final{background:radial-gradient(circle at 50% 35%,#5a321f,#130e0c 70%)}.final h2{font-size:clamp(46px,12vw,80px)}.final .copy{margin-top:24px}.signature{margin-top:34px;color:var(--gold);font-style:italic;letter-spacing:.2em}
+    #music{position:fixed;right:18px;top:max(18px,env(safe-area-inset-top));z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid #e7bf7677;background:#17130fc9;color:var(--gold);display:grid;place-items:center;box-shadow:0 8px 30px #0005;cursor:pointer;backdrop-filter:blur(10px)}#music.playing{animation:spin 8s linear infinite}#music svg{width:20px;height:20px;fill:currentColor}
+    .progress{position:fixed;right:18px;top:50%;z-index:15;display:grid;gap:8px}.progress i{width:4px;height:4px;border-radius:50%;background:#fff6;transition:.4s}.progress i.on{height:22px;border-radius:4px;background:var(--gold)}
+    #particles{position:fixed;inset:0;z-index:10;pointer-events:none}.spark{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:rise linear forwards}.love{position:fixed;z-index:30;pointer-events:none;color:#ffd99a;font:600 15px system-ui,sans-serif;white-space:nowrap;text-shadow:0 2px 12px #000;animation:love 1.5s ease-out forwards}
+    .credit{position:absolute;bottom:8px;left:12px;right:12px;font:9px/1.3 system-ui,sans-serif;color:#ffffff45;text-align:center}
+    @keyframes breathe{to{transform:scale(1.08) translate3d(-1%,1%,0)}}@keyframes caret{50%{border-color:transparent}}@keyframes drop{0%{transform:scaleY(.1);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}100%{transform:translateY(12px);opacity:0}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes rise{to{transform:translateY(-120px) scale(0);opacity:0}}@keyframes love{to{transform:translateY(-120px) scale(1.25);opacity:0}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.content{transition:none}}
+  </style>
+</head>
+<body>
+  <audio id="bgm" loop preload="auto"><source src="music/father-piano.mp3" type="audio/mpeg"></audio>
+  <button id="music" aria-label="播放背景音乐" title="播放/暂停音乐"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></button>
+  <div class="progress" aria-hidden="true"></div><div id="particles"></div>
+  <section class="page hero is-visible"><div class="photo"></div><div class="content"><div class="eyebrow">FATHER'S DAY · 2026</div><h1><span class="type" id="type"></span></h1><div class="rule"><b></b></div><p class="lead">岁月染白双鬓<br>却从未压弯您的脊梁</p></div><div class="scroll"><span>向上滑动</span><i></i></div></section>
+  <section class="page two"><div class="photo"></div><div class="content"><div class="eyebrow">01 · 致敬</div><h2>工地上的英雄</h2><div class="rule"><b></b></div><p class="copy">一砖一瓦，筑起城市<br>一滴汗水，撑起一个家</p></div></section>
+  <section class="page three"><div class="photo"></div><div class="content"><div class="eyebrow">02 · 岁月</div><p class="quote">谢谢您<br>把最好的年华<br><strong>都给了这个家</strong></p></div></section>
+  <section class="page memory"><div class="content"><div class="eyebrow">03 · 一家人</div><div class="frame"><div class="frame-copy">一家人最大的幸福<br>是父亲一直都在</div></div><p class="quiet" style="margin-top:20px">那些没有说出口的爱，都藏在岁月里</p></div></section>
+  <section class="page award"><div class="content certificate"><div class="seal">🏆</div><div class="eyebrow">专属荣誉 · 永久有效</div><h2>最伟大的父亲奖</h2><div class="name">获奖人：爸爸</div><div class="rule"><b></b></div><p class="reason">用双手撑起一个家<br>用肩膀扛起我们的未来<br>以此奖，致敬您无声而深沉的爱</p></div></section>
+  <section class="page final"><div class="content"><div class="eyebrow">TO MY DEAREST FATHER</div><h2>父亲节快乐</h2><p class="copy">愿健康常伴左右<br>愿岁月温柔以待<br>我们永远爱您</p><div class="signature">— 致我最敬爱的父亲</div></div><div class="credit">音乐：Touching Moments One - Pulse / Kevin MacLeod（CC BY 4.0）</div></section>
+  <script>
+    const pages=[...document.querySelectorAll('.page')], dots=document.querySelector('.progress'), bgm=document.querySelector('#bgm'), music=document.querySelector('#music');
+    pages.forEach((_,i)=>dots.insertAdjacentHTML('beforeend',`<i class="${i===0?'on':''}"></i>`)); const ds=[...dots.children];
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');let i=pages.indexOf(e.target);ds.forEach((d,n)=>d.classList.toggle('on',n===i))}}),{threshold:.58});pages.forEach(p=>io.observe(p));
+    const title='父亲，您辛苦了';let ti=0;function typing(){if(ti<=title.length){document.querySelector('#type').textContent=title.slice(0,ti++);setTimeout(typing,170)}}setTimeout(typing,500);
+    async function toggleMusic(){try{if(bgm.paused){await bgm.play();music.classList.add('playing');music.setAttribute('aria-label','暂停背景音乐')}else{bgm.pause();music.classList.remove('playing');music.setAttribute('aria-label','播放背景音乐')}}catch(e){music.classList.remove('playing')}} music.addEventListener('click',e=>{e.stopPropagation();toggleMusic()});
+    let unlocked=false;document.addEventListener('pointerdown',e=>{if(e.target.closest('#music'))return;if(!unlocked){unlocked=true;bgm.play().then(()=>music.classList.add('playing')).catch(()=>{})}const el=document.createElement('div');el.className='love';el.textContent=Math.random()>.45?'谢谢爸爸':'♥';el.style.left=Math.min(e.clientX,innerWidth-90)+'px';el.style.top=e.clientY+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1500)});
+    const field=document.querySelector('#particles');function spark(){if(document.hidden)return;const s=document.createElement('i');s.className='spark';s.style.left=Math.random()*100+'vw';s.style.top=(65+Math.random()*35)+'vh';s.style.animationDuration=(2.5+Math.random()*3)+'s';field.appendChild(s);setTimeout(()=>s.remove(),6000)}setInterval(spark,260);
+    window.addEventListener('keydown',e=>{let i=pages.findIndex(p=>p.getBoundingClientRect().top>=-10);if(e.key==='ArrowDown'||e.key==='PageDown')pages[Math.min(i+1,pages.length-1)].scrollIntoView();if(e.key==='ArrowUp'||e.key==='PageUp')pages[Math.max(i-1,0)].scrollIntoView()});
+  </script>
+</body>
+</html>
